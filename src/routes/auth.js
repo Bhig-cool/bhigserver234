@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
       res.cookie ("jwt", token, { httpOnly: true, maxAge:maxAge * 1000 });
       res.status(215).json(user._id);
     } catch (error) {
-      const errors = handleError(error);
+      // const errors = handleError(error);
       res.status(404).json({ errors });
     }
   });
