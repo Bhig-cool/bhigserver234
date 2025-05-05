@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(215).json(user._id);
     } catch (error) {
-        const errors = handleError(error);
+        // const errors = handleError(error);
         res.status(404).json({ error });
     }
   });
@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
       res.cookie ("jwt", token, { httpOnly: true, maxAge:maxAge * 1000 });
       res.status(215).json(user._id);
     } catch (error) {
-      // const errors = handleError(error);
+      //  const errors = HandleError(error);
       res.status(404).json({ errors });
     }
   });
@@ -61,7 +61,7 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ user: user._id });
   } catch (err) {
-    const errors = handleErrors(err);
+    // const errors = handleErrors(err);
     res.status(400).json({ errors });
   }
 });
