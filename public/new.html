@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="email"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result, #error-message {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        #error-message {
+            color: red;
+        }
+        #result {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Search for a User</h2>
+        <input type="email" id="emailInput" placeholder="Enter a valid email " />
+        <button onclick="searchUser()">Find User</button>
+        <div id="error-message"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function searchUser() {
+            const email = document.getElementById('emailInput').value;
+            const errorDiv = document.getElementById('error-message');
+            const resultDiv = document.getElementById('result');
+
+            // Clear previous messages
+            errorDiv.textContent = '';
+            resultDiv.textContent = '';
+
+            if (!email) {
+                errorDiv.textContent = 'Oga Enter ur email.';
+                return;
+            }
+
+            // Placeholder for fetch request (to be implemented later)
+            fetch(`http://localhost:5001/users/${email}`)
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            throw new Error('User not found');
+                        }
+                        throw new Error('Network error');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    resultDiv.textContent = `User found: ${data.email}`;
+                })
+                .catch(error => {
+                    errorDiv.textContent = `Error: ${error.message}`;
+                });
+        }
+    </script>
+</body>
+</html>
